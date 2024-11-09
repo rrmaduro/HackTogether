@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { UserPen, Globe, Menu } from 'lucide-react';
+import { UserPen, Globe, UserRound } from 'lucide-react';
 import SideMenu from '../Menus/SideMenu';
 
 const navbarStyles = {
   backgroundColor: '#3F51B5',
+  height: '80px',
+  padding: '0 20px', 
 };
 
 const navButtonStyles = {
@@ -28,11 +30,6 @@ const Navbar: React.FC = () => {
       <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={navbarStyles}>
         <div className="container-fluid d-flex align-items-center justify-content-between">
           
-          {/* Left Column: Always-visible Menu Icon */}
-          <div onClick={toggleDrawer} style={{ cursor: 'pointer' }}>
-            <Menu className="h-8 w-8 text-white" /> {/* Increased size */}
-          </div>
-
           {/* Center Column: Culture Connect Brand */}
           <div className="d-flex align-items-center mx-auto">
             <a className="navbar-brand d-flex align-items-center text-white" href="#">
@@ -47,8 +44,8 @@ const Navbar: React.FC = () => {
           <div className="d-flex align-items-center">
             <ul className="navbar-nav">
               <NavItem
-                icon={<UserPen className="h-4 w-4 text-[#3F51B5]" />}
-                text="Join Now"
+                icon={<UserRound className="h-4 w-4 text-[#3F51B5]" />}
+                text="Login"
                 isButton={true}
                 buttonStyles={navButtonStyles}
               />
