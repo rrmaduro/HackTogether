@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { UserPen, Globe, Menu } from 'lucide-react';
+import SideMenu from '../Menus/SideMenu';
 
 const navbarStyles = {
   backgroundColor: '#3F51B5',
@@ -17,40 +18,49 @@ const navItemStyle = {
   marginRight: '20px',
 };
 
-export default function Navbar() {
+const Navbar: React.FC = () => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+
+  const toggleDrawer = () => setIsDrawerOpen((prev) => !prev);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={navbarStyles}>
-      <div className="container-fluid d-flex align-items-center justify-content-between">
-        
-        {/* Left Column: Always-visible Menu Icon (increased size) */}
-        <div>
-          <Menu className="h-8 w-8 text-white" /> {/* Changed to h-8 w-8 for larger icon */}
-        </div>
+    <>
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={navbarStyles}>
+        <div className="container-fluid d-flex align-items-center justify-content-between">
+          
+          {/* Left Column: Always-visible Menu Icon */}
+          <div onClick={toggleDrawer} style={{ cursor: 'pointer' }}>
+            <Menu className="h-8 w-8 text-white" /> {/* Increased size */}
+          </div>
 
-        {/* Center Column: Culture Connect Brand */}
-        <div className="d-flex align-items-center mx-auto">
-          <a className="navbar-brand d-flex align-items-center text-white" href="#">
-            <Globe className="h-4 w-4 text-[#3F51B5]" />
-            <span className="ms-2 text-xl font-weight-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              CultureConnect
-            </span>
-          </a>
-        </div>
+          {/* Center Column: Culture Connect Brand */}
+          <div className="d-flex align-items-center mx-auto">
+            <a className="navbar-brand d-flex align-items-center text-white" href="#">
+              <Globe className="h-4 w-4 text-[#3F51B5]" />
+              <span className="ms-2 text-xl font-weight-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                CultureConnect
+              </span>
+            </a>
+          </div>
 
-        {/* Right Column: Join Now Button (icon-only on small screens) */}
-        <div className="d-flex align-items-center">
-          <ul className="navbar-nav">
-            <NavItem
-              icon={<UserPen className="h-4 w-4 text-[#3F51B5]" />}
-              text="Join Now"
-              isButton={true}
-              buttonStyles={navButtonStyles}
-            />
-          </ul>
-        </div>
+          {/* Right Column: Join Now Button (icon-only on small screens) */}
+          <div className="d-flex align-items-center">
+            <ul className="navbar-nav">
+              <NavItem
+                icon={<UserPen className="h-4 w-4 text-[#3F51B5]" />}
+                text="Join Now"
+                isButton={true}
+                buttonStyles={navButtonStyles}
+              />
+            </ul>
+          </div>
 
-      </div>
-    </nav>
+        </div>
+      </nav>
+
+      {/* Side Menu Drawer */}
+      <SideMenu isOpen={isDrawerOpen} onClose={toggleDrawer} />
+    </>
   );
 }
 
@@ -61,7 +71,7 @@ interface NavItemProps {
   buttonStyles?: React.CSSProperties;
 }
 
-function NavItem({ icon, text, isButton, buttonStyles }: NavItemProps) {
+const NavItem: React.FC<NavItemProps> = ({ icon, text, isButton, buttonStyles }) => {
   if (isButton) {
     return (
       <li className="nav-item" style={navItemStyle}>
@@ -69,7 +79,7 @@ function NavItem({ icon, text, isButton, buttonStyles }: NavItemProps) {
           className="btn d-flex align-items-center"
           style={buttonStyles}
           onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = '#C581BD';
+            e.currentTarget.style.backgroundColor = '#6900D9';
             e.currentTarget.style.color = 'white';
           }}
           onMouseLeave={(e) => {
@@ -92,4 +102,6 @@ function NavItem({ icon, text, isButton, buttonStyles }: NavItemProps) {
       </a>
     </li>
   );
-}
+};
+
+export default Navbar;
