@@ -38,16 +38,26 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
         ...sideMenuStyles,
         width: isOpen ? '250px' : '60px', // Transition the width between 250px (open) and 60px (closed)
       }}
+      onMouseEnter={() => {
+        if (!isOpen) {
+          onClose(); // Optionally call onClose when hovered (if needed for close behavior)
+        }
+      }}
+      onMouseLeave={() => {
+        if (isOpen) {
+          onClose(); // Close the menu when mouse leaves
+        }
+      }}
     >
-      <div className="d-flex flex-column p-3 gap-3" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        <div>
+      <div className="d-flex flex-column p-3" style={{ height: '100%' }}>
+        <div style={{ marginTop: '20px',marginBottom: '20px' }}> {/* Add margin-bottom to create space between groups */}
           <NavItem icon={<Home />} text="Home" isActive={true} isOpen={isOpen} />
           <NavItem icon={<Calendar />} text="Events" isOpen={isOpen} />
           <NavItem icon={<MapPin />} text="Locations" isOpen={isOpen} />
           <NavItem icon={<User />} text="My Events" isOpen={isOpen} />
           <NavItem icon={<Info />} text="About" isOpen={isOpen} />
         </div>
-        <div style={{ marginTop: 'auto' }}>
+        <div style={{ marginTop: 'auto'}}> {/* Add margin-bottom here as well */}
           <NavItem icon={<CogIcon />} text="Settings" isOpen={isOpen} />
         </div>
       </div>
@@ -80,9 +90,21 @@ const NavItem: React.FC<{ icon: React.ReactNode; text: string; isActive?: boolea
         boxShadow: 'none', // No shadow by default
         transition: 'all 0.3s ease-in-out', // Smooth transition for all changes
         color: 'black', // Text color
+        backgroundColor: isActive ? 'white' : 'transparent', // Active item background
+        marginBottom: '10px', // Add margin-bottom to increase spacing between items
       }}
-      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'} // Add shadow on hover
-      onMouseLeave={(e) => e.currentTarget.style.boxShadow = 'none'} // Remove shadow when mouse leaves
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Add shadow on hover
+        if (!isActive) {
+          e.currentTarget.style.backgroundColor = '#f0f0f0'; // Slightly darker background on hover
+        }
+      }} // Add shadow on hover and darken the background
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = 'none'; // Remove shadow when mouse leaves
+        if (!isActive) {
+          e.currentTarget.style.backgroundColor = 'transparent'; // Reset background when hover ends
+        }
+      }} // Reset shadow and background when mouse leaves
     >
       <div
         style={{
