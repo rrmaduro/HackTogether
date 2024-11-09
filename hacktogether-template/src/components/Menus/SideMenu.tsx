@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Calendar, MapPin, User, Info, CogIcon } from 'lucide-react';
+import { Home, Calendar, MapPin, User, Info, CogIcon, CalendarClock, CalendarHeart } from 'lucide-react';
 
 /**
  * Interface defining the props for the SideMenu component.
@@ -54,7 +54,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
           <NavItem icon={<Home />} text="Home" isActive={true} isOpen={isOpen} />
           <NavItem icon={<Calendar />} text="Events" isOpen={isOpen} />
           <NavItem icon={<MapPin />} text="Locations" isOpen={isOpen} />
-          <NavItem icon={<User />} text="My Events" isOpen={isOpen} />
+          <NavItem icon={<CalendarHeart />} text="My Events" isOpen={isOpen} />
           <NavItem icon={<Info />} text="About" isOpen={isOpen} />
         </div>
         <div style={{ marginTop: 'auto'}}> {/* Add margin-bottom here as well */}
