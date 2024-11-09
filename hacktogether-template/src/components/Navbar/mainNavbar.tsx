@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserPen, Globe } from 'lucide-react';
+import { UserPen, Globe, UserRound } from 'lucide-react';
 import SideMenu from '../Menus/SideMenu';
 
 const navbarStyles = {
@@ -44,8 +44,8 @@ const Navbar: React.FC = () => {
           <div className="d-flex align-items-center">
             <ul className="navbar-nav">
               <NavItem
-                icon={<UserPen className="h-4 w-4 text-[#3F51B5]" />}
-                text="Join Now"
+                icon={<UserRound className="h-4 w-4 text-[#3F51B5]" />}
+                text="Login"
                 isButton={true}
                 buttonStyles={navButtonStyles}
               />
