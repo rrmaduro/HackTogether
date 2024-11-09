@@ -10,11 +10,15 @@ export default function Settings() {
                 <input type="email" name="form-control" id="exampleFormControlInput1" />
             </div>
             <div className='mb-3'>
+                <label htmlFor="locationSetting" className='form.label'>password</label>
+                <input type="text" name="locationSettingsInput" id="locationSettings" />
+            </div>
+            <div className='mb-3'>
                 <label htmlFor="usernameSetting" className='form.label'>username</label>
                 <input type="text" name="usernameSettingsInput" id="usernameSettings" />
             </div>
             <div className='mb-3'>
-                <label htmlFor="locationSetting" className='form.label'>username</label>
+                <label htmlFor="locationSetting" className='form.label'>localidade</label>
                 <input type="text" name="locationSettingsInput" id="locationSettings" />
             </div>
             <div className="mb-3">
