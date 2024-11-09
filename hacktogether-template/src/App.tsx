@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/Navbars/mainNavBar';
+import Navbar from './components/Navbar/mainNavbar';
 
 function App() {
   return (
