@@ -4,6 +4,7 @@ import { ReactTogether } from 'react-together'
 
 import App from '@/App'
 
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ReactTogether
