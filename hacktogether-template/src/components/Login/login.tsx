@@ -19,6 +19,7 @@ export default function Login() {
                       <input type="password" className='form-control' id='exampleInputPassword1' />
                     </div>
                     <button type="submit" className="btn btn-primary">Submit</button>
+                    <a href="" className='d-block text-center'>Sign up</a>
                 </form>
             </div>
         </div>
