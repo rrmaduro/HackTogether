@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function MainPage() {
     return (
-        <nav className="container-fluid min-vh-100" style={{ width: 'calc(100% - 250px)', marginRight: '0', marginTop: '80px', marginBottom: '0' }}>
+        <nav className="container-fluid min-vh-100 bg-danger" style={{ width: 'calc(100% - 50px)', marginRight: '0', marginTop: '80px', marginBottom: '0' }}>
             <div className='text-center'>
                 <h1>Connect Across</h1>
                 <h1>Cultures &</h1>

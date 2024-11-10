@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UserPen, Globe, UserRound } from "lucide-react";
+import { UserRound, Globe } from "lucide-react";
 import SideMenu from "../Menus/SideMenu";
 import { Link } from "react-router-dom";
 
@@ -33,8 +33,8 @@ const Navbar: React.FC = () => {
         style={navbarStyles}
       >
         <div className="container-fluid d-flex align-items-center justify-content-between">
-          {/* Center Column: Culture Connect Brand */}
-          <div className="d-flex align-items-center mx-auto">
+          {/* Left Column: CultureConnect Brand */}
+          <div className="d-flex align-items-center">
             <a
               className="navbar-brand d-flex align-items-center text-white"
               href="#"
@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
             </a>
           </div>
 
-          {/* Right Column: Join Now Button (icon-only on small screens) */}
+          {/* Right Column: Login Button */}
           <div className="d-flex align-items-center">
             <ul className="navbar-nav">
               <Link to="/log-in">
