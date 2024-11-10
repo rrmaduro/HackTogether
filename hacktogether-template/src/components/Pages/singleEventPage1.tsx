@@ -14,33 +14,53 @@ const event = {
   attendees: 45,
 };
 
-const EventPage = () => {
-  const [messages, setMessages] = useState([
-    { id: 1, user: 'Sarah', text: 'Welcome to the live chat!', isUser: false, time: '2:30 PM' },
-    { id: 2, user: 'John', text: 'Feel free to share your thoughts!', isUser: false, time: '2:32 PM' }
-  ]);
-  const [newMessage, setNewMessage] = useStateTogetherWithPerUserValues('message', '');
-  const [likes, setLikes] = useStateTogether("likes",event.initialLikes);
-  const [saves, setSaves] = useStateTogether("saves",event.initialSaves);
-  const [liked, setLiked] = useStateTogether("liked",false);
-  const [saved, setSaved] = useStateTogether("saved",false);
+const placeholders = [
+  { id: 1, user: 'Sarah', text: 'Welcome to the live chat!', isUser: false, time: '2:30 PM' },
+  { id: 2, user: 'John', text: 'Feel free to share your thoughts!', isUser: false, time: '2:32 PM' }
+];
 
+const EventPage = () => {
+  const [messages, setMessages] = useState([]);
+  const [allMessages, setAllMessages, allMessagesPerUser] = useStateTogetherWithPerUserValues('messages', placeholders);
+  const [newMessage, setNewMessage] = useState('');
+  const [likes, setLikes] = useStateTogether("likes", event.initialLikes);
+  const [saves, setSaves] = useStateTogether("saves", event.initialSaves);
+  const [liked, setLiked] = useStateTogether("liked", false);
+  const [saved, setSaved] = useStateTogether("saved", false);
+  
   const messagesEndRef = useRef(null);
-  const socket = useRef(null); 
+  const socket = useRef(null);
+
+  useEffect(() => {
+    socket.current = new WebSocket("ws://your-websocket-server-url");
+    
+    socket.current.onopen = () => {
+      console.log("Socket connected");
+    };
+
+    socket.current.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      setAllMessages((prevMessages) => [...prevMessages, message]);
+    };
+
+    return () => {
+      socket.current.close();
+    };
+  }, []);
 
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const newMsg = {
-        id: messages.length + 1,
+        id: allMessages.length + 1,
         user: 'You',
         text: newMessage,
         isUser: true,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
-      socket.current.sendMessage('event-chat-room', newMsg);
-
+      socket.current.send(JSON.stringify(newMsg));
       setMessages((prevMessages) => [...prevMessages, newMsg]);
+      setAllMessages((prevMessages) => [...prevMessages, newMsg]);
       setNewMessage('');
     }
   };
@@ -57,6 +77,7 @@ const EventPage = () => {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
 
   return (
     <div className="container py-5">
@@ -100,7 +121,7 @@ const EventPage = () => {
             </div>
             <div className="card-body d-flex flex-column" style={{ padding: '20px' }}>
               <div className="chat-box p-3 mb-3 rounded" style={{ height: '483px', overflowY: 'scroll', backgroundColor: '#ffffff', boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.1)' }}>
-                {messages.map((message) => (
+                {allMessages.map((message) => (
                   <div key={message.id} className={`mb-3 d-flex ${message.isUser ? 'justify-content-end' : 'justify-content-start'}`}>
                     <div className="p-2 rounded" style={{ maxWidth: '70%', backgroundColor: message.isUser ? '#d1e7dd' : '#f8f9fa', color: message.isUser ? '#0f5132' : '#495057', boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
                       <div className="d-flex justify-content-between">
