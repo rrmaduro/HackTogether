@@ -66,7 +66,6 @@ const Navbar: React.FC = () => {
 
       {/* Side Menu Drawer */}
       <SideMenu isOpen={isDrawerOpen} onClose={toggleDrawer} />
-    
     </>
   );
 };
