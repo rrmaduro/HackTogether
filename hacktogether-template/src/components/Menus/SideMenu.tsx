@@ -33,40 +33,39 @@ const sideMenuStyles: React.CSSProperties = {
  * @param {function} onClose - Callback function to handle the closing of the menu.
  */
 const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
-  return (
-    <div
-      style={{
-        ...sideMenuStyles,
-        width: isOpen ? '250px' : '60px', // Transition the width between 250px (open) and 60px (closed)
-      }}
-      onMouseEnter={() => {
-        if (!isOpen) {
-          onClose(); // Optionally call onClose when hovered (if needed for close behavior)
-        }
-      }}
-      onMouseLeave={() => {
-        if (isOpen) {
-          onClose(); // Close the menu when mouse leaves
-        }
-      }}
-    >
-      <div className="d-flex flex-column p-3" style={{ height: '100%' }}>
-        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-          {/* Pass 'to' prop for routing */}
-          <NavItem icon={<Home />} text="Home" isActive={true} isOpen={isOpen} to="/" />
-          <NavItem icon={<Calendar />} text="Events" isOpen={isOpen} to="/events" />
-          <NavItem icon={<MapPin />} text="Locations" isOpen={isOpen} to="/locations" />
-          <NavItem icon={<CalendarHeart />} text="My Events" isOpen={isOpen} to="/my-events" />
-          <NavItem icon={<Info />} text="About" isOpen={isOpen} to="/about" />
-        </div>
-        <div style={{ marginTop: 'auto' }}>
-          <NavItem icon={<CogIcon />} text="Settings" isOpen={isOpen} to="/settings" />
+    return (
+      <div
+        style={{
+          ...sideMenuStyles,
+          width: isOpen ? '250px' : '60px', // Transition the width between 250px (open) and 60px (closed)
+        }}
+        onMouseEnter={() => {
+          if (!isOpen) {
+            onClose(); // Optionally call onClose when hovered (if needed for close behavior)
+          }
+        }}
+        onMouseLeave={() => {
+          if (isOpen) {
+            onClose(); // Close the menu when mouse leaves
+          }
+        }}
+      >
+        <div className="d-flex flex-column p-3" style={{ height: '100%' }}>
+          <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+            {/* Pass 'to' prop for routing */}
+            <NavItem icon={<Home />} text="Home" isActive={true} isOpen={isOpen} to="/" />
+            <NavItem icon={<Calendar />} text="Events" isOpen={isOpen} to="/events" />
+            <NavItem icon={<MapPin />} text="Locations" isOpen={isOpen} to="/locations" />
+            <NavItem icon={<CalendarHeart />} text="My Events" isOpen={isOpen} to="/my-events" />
+            <NavItem icon={<Info />} text="About" isOpen={isOpen} to="/about" />
+          </div>
+          <div style={{ marginTop: 'auto' }}>
+            <NavItem icon={<CogIcon />} text="Settings" isOpen={isOpen} to="/settings" />
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  };
 /**
  * Navigation item component for each side menu option.
  * 

@@ -33,7 +33,7 @@ function AppContent() {
       {/* Content with margin-top to avoid overlap with the navbar */}
       <div style={{ marginTop: '80px' }}>
         <Routes>
-          <Route path="/" element={<MainPage />} /> {/* MainPage at root route */}
+          <Route path="/" element={<MainPage isDrawerOpen={false} />} /> {/* MainPage at root route */}
           <Route path="/locations" element={<LocationsPage />} /> {/* LocationsPage */}
           <Route path="/events" element={<EventPage />} /> {/* EventPage */}
           <Route path="/about" element={<AboutPage />} /> {/* AboutPage */}

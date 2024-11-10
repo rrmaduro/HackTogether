@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { UserRound, Globe } from "lucide-react";
 import SideMenu from "../Menus/SideMenu";
 import { Link } from "react-router-dom";
+import MainPage from "@components/Pages/MainPage";
 
 const navbarStyles = {
   backgroundColor: "#3F51B5",
@@ -21,6 +22,7 @@ const navItemStyle = {
   marginRight: "20px",
 };
 
+// Navbar.tsx
 const Navbar: React.FC = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
@@ -64,9 +66,13 @@ const Navbar: React.FC = () => {
 
       {/* Side Menu Drawer */}
       <SideMenu isOpen={isDrawerOpen} onClose={toggleDrawer} />
+      
+      {/* Pass the isOpen state to MainPage */}
+      <MainPage isDrawerOpen={isDrawerOpen} />
     </>
   );
 };
+
 
 interface NavItemProps {
   icon: React.ReactNode;
