@@ -21,7 +21,7 @@ const placeholders = [
 
 const EventPage = () => {
   const [messages, setMessages] = useState([]);
-  const [allMessages, setAllMessages, allMessagesPerUser] = useStateTogetherWithPerUserValues('messages', placeholders);
+  const [allMessages, setAllMessages] = useStateTogether('messages', placeholders);
   const [newMessage, setNewMessage] = useState('');
   const [likes, setLikes] = useStateTogether("likes", event.initialLikes);
   const [saves, setSaves] = useStateTogether("saves", event.initialSaves);
@@ -32,7 +32,7 @@ const EventPage = () => {
   const socket = useRef(null);
 
   useEffect(() => {
-    socket.current = new WebSocket("ws://your-websocket-server-url");
+    socket.current = new WebSocket("wss://your-websocket-server-url");
     
     socket.current.onopen = () => {
       console.log("Socket connected");
@@ -59,7 +59,7 @@ const EventPage = () => {
       };
 
       socket.current.send(JSON.stringify(newMsg));
-      setMessages((prevMessages) => [...prevMessages, newMsg]);
+
       setAllMessages((prevMessages) => [...prevMessages, newMsg]);
       setNewMessage('');
     }
@@ -76,8 +76,7 @@ const EventPage = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [messages]);
-
+  }, [allMessages]);
 
   return (
     <div className="container py-5">
