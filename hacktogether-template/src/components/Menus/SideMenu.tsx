@@ -1,5 +1,6 @@
 import React from 'react';
 import { Home, Calendar, MapPin, User, Info, CogIcon, CalendarClock, CalendarHeart } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Import Link to use for navigation
 
 /**
  * Interface defining the props for the SideMenu component.
@@ -50,15 +51,16 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
       }}
     >
       <div className="d-flex flex-column p-3" style={{ height: '100%' }}>
-        <div style={{ marginTop: '20px',marginBottom: '20px' }}> {/* Add margin-bottom to create space between groups */}
-          <NavItem icon={<Home />} text="Home" isActive={true} isOpen={isOpen} />
-          <NavItem icon={<Calendar />} text="Events" isOpen={isOpen} />
-          <NavItem icon={<MapPin />} text="Locations" isOpen={isOpen} />
-          <NavItem icon={<CalendarHeart />} text="My Events" isOpen={isOpen} />
-          <NavItem icon={<Info />} text="About" isOpen={isOpen} />
+        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
+          {/* Pass 'to' prop for routing */}
+          <NavItem icon={<Home />} text="Home" isActive={true} isOpen={isOpen} to="/" />
+          <NavItem icon={<Calendar />} text="Events" isOpen={isOpen} to="/events" />
+          <NavItem icon={<MapPin />} text="Locations" isOpen={isOpen} to="/locations" />
+          <NavItem icon={<CalendarHeart />} text="My Events" isOpen={isOpen} to="/my-events" />
+          <NavItem icon={<Info />} text="About" isOpen={isOpen} to="/about" />
         </div>
-        <div style={{ marginTop: 'auto'}}> {/* Add margin-bottom here as well */}
-          <NavItem icon={<CogIcon />} text="Settings" isOpen={isOpen} />
+        <div style={{ marginTop: 'auto' }}>
+          <NavItem icon={<CogIcon />} text="Settings" isOpen={isOpen} to="/settings" />
         </div>
       </div>
     </div>
@@ -72,59 +74,62 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onClose }) => {
  * @param {string} text - The label text for the navigation item.
  * @param {boolean} isActive - Indicates whether the item is currently active.
  * @param {boolean} isOpen - Indicates whether the side menu is open or closed.
+ * @param {string} to - The route path that this item should navigate to.
  */
-const NavItem: React.FC<{ icon: React.ReactNode; text: string; isActive?: boolean; isOpen: boolean }> = ({ icon, text, isActive = false, isOpen }) => {
+const NavItem: React.FC<{ icon: React.ReactNode; text: string; isActive?: boolean; isOpen: boolean; to: string }> = ({ icon, text, isActive = false, isOpen, to }) => {
   return (
-    <button
-      className={`d-flex align-items-center w-100 text-lg font-medium transition ${isActive ? 'bg-white text-black' : 'text-black bg-white hover:bg-gray-100 hover:text-purple-600 hover:fill-purple-600'}`}
-      style={{
-        display: 'flex',
-        justifyContent: isOpen ? 'flex-start' : 'center', // Align icon and text to the start when open, center when closed
-        alignItems: 'center', // Align vertically in the center
-        padding: isOpen ? '20px 15px' : '0', // Padding when open, none when closed
-        width: isOpen ? '100%' : '60px', // Full width when open, icon-only when closed
-        height: '60px', // Square height to make buttons uniform
-        minHeight: '60px',
-        borderRadius: '8px', // Rounded corners
-        border: 'none', // Remove border
-        boxShadow: 'none', // No shadow by default
-        transition: 'all 0.3s ease-in-out', // Smooth transition for all changes
-        color: 'black', // Text color
-        backgroundColor: isActive ? 'white' : 'transparent', // Active item background
-        marginBottom: '10px', // Add margin-bottom to increase spacing between items
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Add shadow on hover
-        if (!isActive) {
-          e.currentTarget.style.backgroundColor = '#f0f0f0'; // Slightly darker background on hover
-        }
-      }} // Add shadow on hover and darken the background
-      onMouseLeave={(e) => {
-        e.currentTarget.style.boxShadow = 'none'; // Remove shadow when mouse leaves
-        if (!isActive) {
-          e.currentTarget.style.backgroundColor = 'transparent'; // Reset background when hover ends
-        }
-      }} // Reset shadow and background when mouse leaves
-    >
-      <div
+    <Link to={to} style={{ textDecoration: 'none' }}>
+      <button
+        className={`d-flex align-items-center w-100 text-lg font-medium transition ${isActive ? 'bg-white text-black' : 'text-black bg-white hover:bg-gray-100 hover:text-purple-600 hover:fill-purple-600'}`}
         style={{
-          fontSize: isOpen ? '20px' : '24px', // Change icon size when the menu is open vs closed
-          transition: 'font-size 0.3s ease-in-out', // Smooth transition for font size change
+          display: 'flex',
+          justifyContent: isOpen ? 'flex-start' : 'center', // Align icon and text to the start when open, center when closed
+          alignItems: 'center', // Align vertically in the center
+          padding: isOpen ? '20px 15px' : '0', // Padding when open, none when closed
+          width: isOpen ? '100%' : '60px', // Full width when open, icon-only when closed
+          height: '60px', // Square height to make buttons uniform
+          minHeight: '60px',
+          borderRadius: '8px', // Rounded corners
+          border: 'none', // Remove border
+          boxShadow: 'none', // No shadow by default
+          transition: 'all 0.3s ease-in-out', // Smooth transition for all changes
+          color: 'black', // Text color
+          backgroundColor: isActive ? 'white' : 'transparent', // Active item background
+          marginBottom: '10px', // Add margin-bottom to increase spacing between items
         }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)'; // Add shadow on hover
+          if (!isActive) {
+            e.currentTarget.style.backgroundColor = '#f0f0f0'; // Slightly darker background on hover
+          }
+        }} 
+        onMouseLeave={(e) => {
+          e.currentTarget.style.boxShadow = 'none'; // Remove shadow when mouse leaves
+          if (!isActive) {
+            e.currentTarget.style.backgroundColor = 'transparent'; // Reset background when hover ends
+          }
+        }} 
       >
-        {React.cloneElement(icon as React.ReactElement, { className: 'icon' })}
-      </div>
-      <span
-        className={`ms-3 ${isOpen ? '' : 'd-none'}`} // Hide text when the menu is closed
-        style={{
-          transition: 'opacity 0.3s ease-in-out', // Smooth transition for text visibility
-          opacity: isOpen ? 1 : 0, // Fade in/out based on menu state
-          whiteSpace: 'nowrap', // Prevent text from wrapping
-        }}
-      >
-        {text}
-      </span>
-    </button>
+        <div
+          style={{
+            fontSize: isOpen ? '20px' : '24px', // Change icon size when the menu is open vs closed
+            transition: 'font-size 0.3s ease-in-out', // Smooth transition for font size change
+          }}
+        >
+          {React.cloneElement(icon as React.ReactElement, { className: 'icon' })}
+        </div>
+        <span
+          className={`ms-3 ${isOpen ? '' : 'd-none'}`} // Hide text when the menu is closed
+          style={{
+            transition: 'opacity 0.3s ease-in-out', // Smooth transition for text visibility
+            opacity: isOpen ? 1 : 0, // Fade in/out based on menu state
+            whiteSpace: 'nowrap', // Prevent text from wrapping
+          }}
+        >
+          {text}
+        </span>
+      </button>
+    </Link>
   );
 };
 

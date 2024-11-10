@@ -16,7 +16,7 @@ const LocationsPage: React.FC = () => {
   return (
     <div className="container my-5">
       {/* Row 1 */}
-      <div className="row g-4" style={{ marginBottom: '10px' }}>
+      <div className="row g-4" style={{ marginBottom: '20px' }}>
         <div className="col-md-4 d-flex">
           <LocationCard
             imageSrc={lisbonImage}
@@ -47,7 +47,7 @@ const LocationsPage: React.FC = () => {
       </div>
 
       {/* Row 2 */}
-      <div className="row g-4" style={{ marginTop: '-4rem' }}>
+      <div className="row g-4" style={{ marginTop: '-7rem' }}>
         <div className="col-md-4 d-flex">
           <LocationCard
             imageSrc={romeImage}
@@ -78,7 +78,7 @@ const LocationsPage: React.FC = () => {
       </div>
 
       {/* Row 3 */}
-      <div className="row g-4" style={{ marginTop: '-4rem' }}>
+      <div className="row g-4" style={{ marginTop: '-6rem' }}>
         <div className="col-md-4 d-flex">
           <LocationCard
             imageSrc={londonImage}
