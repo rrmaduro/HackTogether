@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { CircleUserRound } from 'lucide-react';
-import { Link } from "react-router-dom";
+import { CircleUserRound, ArrowLeft } from 'lucide-react'; // Import ArrowLeft for back icon
+import { Link, useNavigate } from "react-router-dom";
 import BackgroundVideo from "../../assets/videos/signUpVideo.mp4";
 
-
 export default function Signup() {
+    const navigate = useNavigate();
+
     // UseEffect to disable scrolling on the body and html elements
     useEffect(() => {
         document.body.style.overflow = 'hidden'; // Disable scrolling
@@ -17,34 +18,47 @@ export default function Signup() {
     }, []);
 
     const styles: { [key: string]: React.CSSProperties } = {
-        // Prevent scrolling
         htmlBody: {
             height: '100%',
             margin: 0,
-            overflow: 'hidden', // Disables scrolling
+            overflow: 'hidden',
         },
         videoBackgroundContainer: {
-            position: 'relative' as 'relative', // Explicit type for position
+            position: 'relative',
             height: '100%',
             width: '100%',
         },
         backgroundVideo: {
-            position: 'fixed' as 'fixed', // Explicit type for position
+            position: 'fixed',
             top: 0,
             left: 0,
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            zIndex: -1, // Places video behind the form
+            zIndex: -1,
         },
         containerFluid: {
-            zIndex: 1, // Ensures the form is above the video
+            zIndex: 1,
+            position: 'relative',
         },
+        backIcon: {
+            position: 'absolute',
+            top: '1rem',
+            left: '1rem',
+            cursor: 'pointer',
+        },
+        bgLight: {
+            position: 'relative',
+            padding: '5rem 3rem',
+            borderRadius: '0.5rem',
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+            textAlign: 'center',
+        }
     };
 
     return (
         <div style={styles.videoBackgroundContainer}>
-            {/* Background Video - Optional, if you want to add a background video */}
+            {/* Background Video */}
             <video autoPlay muted loop style={styles.backgroundVideo}>
                 <source src={BackgroundVideo} type="video/mp4" />
                 Your browser does not support the video tag.
@@ -52,6 +66,9 @@ export default function Signup() {
 
             <nav className="container-fluid position-fixed top-50 start-50 translate-middle min-vh-100 d-flex align-items-center justify-content-center" style={styles.containerFluid}>
                 <div className="bg-light p-5 rounded shadow text-center" style={styles.bgLight}>
+                    {/* Back Arrow */}
+                    <ArrowLeft style={styles.backIcon} onClick={() => navigate(-1)} />
+
                     <div className="rounded mx-auto d-block">
                         <CircleUserRound style={{ width: "10rem", height: "10rem" }} />
                     </div>
@@ -73,14 +90,8 @@ export default function Signup() {
                                 <label htmlFor="password" className="form-label">Password</label>
                                 <input type="password" className="form-control" id="password" />
                             </div>
-                            <div className="mb-3 form-check">
-                                <input type="checkbox" name="form-check-input" id="exampleCheck1" />
-                                <label className="form-check-label" htmlFor="exampleCheck1">Agree with terms</label>
-                            </div>
                             <button type="submit" className="btn btn-primary">Submit</button>
-                            <Link to="/log-in">
-                                <a href="" className="d-block text-center">Already have an account? Log in</a>
-                            </Link>
+                            <Link to="/log-in" className="d-block text-center">Already have an account? Log in</Link>
                         </form>
                     </div>
                 </div>
