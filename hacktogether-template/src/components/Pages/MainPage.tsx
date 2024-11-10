@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Import the video file
-import backgroundVideo from '../../assets/videos/mainPage.mp4';
 
 // Import event images
 import eventImageTraditionalJapaneseTeaCeremony from '../../assets/images/traditional_japanese_tea_ceremony.png'; 
@@ -62,7 +61,6 @@ export default function MainPage({ isDrawerOpen }: MainPageProps) {
             }}
           >
             <source
-              src={backgroundVideo} // Use the imported video here
               type="video/mp4"
             />
             {/* Optionally add other video formats */}
