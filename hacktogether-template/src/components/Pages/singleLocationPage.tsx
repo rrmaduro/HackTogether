@@ -13,6 +13,9 @@ const SingleLocationPage: React.FC = () => {
   // State to track the active index of the carousel
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // State to manage the input message
+  const [message, setMessage] = useState('');
+
   // Function to handle the next slide
   const next = () => {
     const nextIndex = activeIndex === 3 ? 0 : activeIndex + 1; // Loop back to first item when the last item is reached
@@ -23,6 +26,15 @@ const SingleLocationPage: React.FC = () => {
   const previous = () => {
     const prevIndex = activeIndex === 0 ? 3 : activeIndex - 1; // Loop back to the last item when the first item is reached
     setActiveIndex(prevIndex);
+  };
+
+  // Function to handle the message submission when Enter key is pressed
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      // Here you can handle the message submission, e.g., sending the message or updating the UI
+      console.log('Message submitted:', message);  // Replace this with your message submit logic
+      setMessage('');  // Clear the input after submission
+    }
   };
 
   return (
@@ -102,7 +114,18 @@ const SingleLocationPage: React.FC = () => {
         </Carousel>
       </div>
 
-      {/* You can add more events listed below or additional content */}
+      {/* Message input */}
+      <div className="my-4">
+        <h3>Send us a message</h3>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyPress}
+          placeholder="Type your message and press Enter"
+          className="form-control"
+        />
+      </div>
     </div>
   );
 };
