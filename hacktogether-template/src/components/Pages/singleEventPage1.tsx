@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import ReactTogeth, { useState, useEffect, useRef } from 'react-together';
 import { Heart, Bookmark, Users, MessageSquare } from 'lucide-react';
 import eventImageTraditionalJapaneseTeaCeremony from '../../assets/images/traditional_japanese_tea_ceremony.png';
 
-// Dummy data for the event
+// Replace this with the actual Multisync library or WebSocket API you're using
+import MultisyncAPI from 'multisync-api-client';  // Hypothetical import, replace with the correct library
+
 const event = {
   name: "Traditional Japanese Tea Ceremony",
   location: "Kyoto Cultural Center",
@@ -25,9 +27,29 @@ const EventPage = () => {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null); // To scroll to the latest message
+  const messagesEndRef = useRef(null);
+  const socket = useRef(null); // Multisync or WebSocket connection
 
-  // Function to send a message (mock API interaction for now)
+  // Connect to Multisync API when the component mounts
+  useEffect(() => {
+    // Initialize the Multisync API client with your API key
+    socket.current = new MultisyncAPI({ apiKey: '' });
+
+    // Join the chat room or channel for the event
+    socket.current.joinRoom('event-chat-room');  // Replace with the actual room name/channel
+
+    // Listen for incoming messages from other users
+    socket.current.on('newMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // Cleanup on unmount
+    return () => {
+      socket.current.disconnect();
+    };
+  }, []);
+
+  // Function to send a message
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const newMsg = {
@@ -38,8 +60,12 @@ const EventPage = () => {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
+      // Send the new message to the Multisync API server
+      socket.current.sendMessage('event-chat-room', newMsg);
+
+      // Optimistically update the local state to display the new message
       setMessages((prevMessages) => [...prevMessages, newMsg]);
-      setNewMessage(''); // Clear input field
+      setNewMessage(''); // Clear the input field
     }
   };
 
