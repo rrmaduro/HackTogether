@@ -20,7 +20,7 @@ const placeholders = [
 ];
 
 const EventPage = () => {
-  const [messages, setMessages] = useState([]);
+  const [username, setUsername] = useState(localStorage.getItem('username') || '');
   const [allMessages, setAllMessages] = useStateTogether('messages', placeholders);
   const [newMessage, setNewMessage] = useState('');
   const [likes, setLikes] = useStateTogether("likes", event.initialLikes);
@@ -30,6 +30,16 @@ const EventPage = () => {
   
   const messagesEndRef = useRef(null);
   const socket = useRef(null);
+
+  useEffect(() => {
+    if (!username) {
+      const userInput = prompt("Please enter your username:");
+      if (userInput) {
+        setUsername(userInput);
+        localStorage.setItem('username', userInput);
+      }
+    }
+  }, [username]);
 
   useEffect(() => {
     socket.current = new WebSocket("wss://your-websocket-server-url");
@@ -48,11 +58,11 @@ const EventPage = () => {
     };
   }, []);
 
-  const handleSendMessage = async () => {
-    if (newMessage.trim()) {
+  const handleSendMessage = () => {
+    if (newMessage.trim() && username) {
       const newMsg = {
         id: allMessages.length + 1,
-        user: 'You',
+        user: username,
         text: newMessage,
         isUser: true,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
@@ -122,7 +132,13 @@ const EventPage = () => {
               <div className="chat-box p-3 mb-3 rounded" style={{ height: '483px', overflowY: 'scroll', backgroundColor: '#ffffff', boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.1)' }}>
                 {allMessages.map((message) => (
                   <div key={message.id} className={`mb-3 d-flex ${message.isUser ? 'justify-content-end' : 'justify-content-start'}`}>
-                    <div className="p-2 rounded" style={{ maxWidth: '70%', backgroundColor: message.isUser ? '#d1e7dd' : '#f8f9fa', color: message.isUser ? '#0f5132' : '#495057', boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)', borderRadius: '15px' }}>
+                    <div className="p-2 rounded" style={{ 
+                      maxWidth: '70%', 
+                      backgroundColor: message.isUser ? '#d1e7dd' : '#f8f9fa', 
+                      color: message.isUser ? '#0f5132' : '#495057', 
+                      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)', 
+                      borderRadius: '15px' 
+                    }}>
                       <div className="d-flex justify-content-between">
                         <span className="font-weight-bold">{message.user}</span>
                         <span className="text-muted" style={{ fontSize: '0.75rem' }}>{message.time}</span>
