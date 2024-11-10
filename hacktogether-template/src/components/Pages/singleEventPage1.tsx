@@ -1,9 +1,7 @@
-import ReactTogeth, { useState, useEffect, useRef } from 'react-together';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, Bookmark, Users, MessageSquare } from 'lucide-react';
 import eventImageTraditionalJapaneseTeaCeremony from '../../assets/images/traditional_japanese_tea_ceremony.png';
-
-// Replace this with the actual Multisync library or WebSocket API you're using
-import MultisyncAPI from 'multisync-api-client';  // Hypothetical import, replace with the correct library
+import { useStateTogether, useStateTogetherWithPerUserValues } from 'react-together';
 
 const event = {
   name: "Traditional Japanese Tea Ceremony",
@@ -21,35 +19,15 @@ const EventPage = () => {
     { id: 1, user: 'Sarah', text: 'Welcome to the live chat!', isUser: false, time: '2:30 PM' },
     { id: 2, user: 'John', text: 'Feel free to share your thoughts!', isUser: false, time: '2:32 PM' }
   ]);
-  const [newMessage, setNewMessage] = useState('');
-  const [likes, setLikes] = useState(event.initialLikes);
-  const [saves, setSaves] = useState(event.initialSaves);
-  const [liked, setLiked] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [newMessage, setNewMessage] = useStateTogetherWithPerUserValues('message', '');
+  const [likes, setLikes] = useStateTogether("likes",event.initialLikes);
+  const [saves, setSaves] = useStateTogether("saves",event.initialSaves);
+  const [liked, setLiked] = useStateTogether("liked",false);
+  const [saved, setSaved] = useStateTogether("saved",false);
 
   const messagesEndRef = useRef(null);
-  const socket = useRef(null); // Multisync or WebSocket connection
+  const socket = useRef(null); 
 
-  // Connect to Multisync API when the component mounts
-  useEffect(() => {
-    // Initialize the Multisync API client with your API key
-    socket.current = new MultisyncAPI({ apiKey: '' });
-
-    // Join the chat room or channel for the event
-    socket.current.joinRoom('event-chat-room');  // Replace with the actual room name/channel
-
-    // Listen for incoming messages from other users
-    socket.current.on('newMessage', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
-    // Cleanup on unmount
-    return () => {
-      socket.current.disconnect();
-    };
-  }, []);
-
-  // Function to send a message
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const newMsg = {
@@ -60,24 +38,20 @@ const EventPage = () => {
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
 
-      // Send the new message to the Multisync API server
       socket.current.sendMessage('event-chat-room', newMsg);
 
-      // Optimistically update the local state to display the new message
       setMessages((prevMessages) => [...prevMessages, newMsg]);
-      setNewMessage(''); // Clear the input field
+      setNewMessage('');
     }
   };
 
-  // Handle "Enter" key press to send message
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      e.preventDefault(); // Prevents the default line break behavior
+      e.preventDefault();
       handleSendMessage();
     }
   };
 
-  // Scroll to the latest message whenever messages change
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
