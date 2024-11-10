@@ -1,64 +1,54 @@
-import React, { useState } from "react";
-import { UserRound, Globe } from "lucide-react";
-import SideMenu from "../Menus/SideMenu";
-import { Link } from "react-router-dom";
-import MainPage from "@components/Pages/MainPage";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'; // Import Router and Route
+import { Globe, User } from 'lucide-react';
+import SideMenu from '../Menus/SideMenu';
+import UserProfile from '../Pages/profilePage'; // Import the Profile Page component
 
 const navbarStyles = {
-  backgroundColor: "#3F51B5",
-  height: "80px",
-  padding: "0 20px",
+  backgroundColor: '#0b5ed7',
 };
 
 const navButtonStyles = {
-  backgroundColor: "white",
-  color: "#3F51B5",
-  borderColor: "#3F51B5",
-  borderRadius: "20px",
-  padding: "8px 16px",
+  backgroundColor: 'white',
+  color: '#3F51B5',
+  borderColor: '#3F51B5',
+  borderRadius: '20px',
+  padding: '8px 16px',
 };
 
 const navItemStyle = {
-  marginRight: "20px",
+  marginRight: '20px',
 };
 
-// Navbar.tsx
 const Navbar: React.FC = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState<boolean>(false);
 
   const toggleDrawer = () => setIsDrawerOpen((prev) => !prev);
 
   return (
     <>
-      <nav
-        className="navbar navbar-expand-lg navbar-light fixed-top"
-        style={navbarStyles}
-      >
+      <nav className="navbar navbar-expand-lg navbar-light fixed-top" style={navbarStyles}>
         <div className="container-fluid d-flex align-items-center justify-content-between">
-          {/* Left Column: CultureConnect Brand */}
+
+          {/* Left Column: Culture Connect Brand */}
           <div className="d-flex align-items-center">
-            <a
-              className="navbar-brand d-flex align-items-center text-white"
-              href="#"
-            >
-              <Globe className="h-4 w-4 text-[#3F51B5]" />
+            <a className="navbar-brand d-flex align-items-center text-white" href="#">
+              <Globe className="h-4 w-4 text-['#FFFF']" />
               <span className="ms-2 text-xl font-weight-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 CultureConnect
               </span>
             </a>
           </div>
 
-          {/* Right Column: Login Button */}
+          {/* Right Column: Profile Link (no dropdown) */}
           <div className="d-flex align-items-center">
             <ul className="navbar-nav">
-              <Link to="/log-in">
-                <NavItem
-                  icon={<UserRound className="h-4 w-4 text-[#3F51B5]" />}
-                  text="Login"
-                  isButton={true}
-                  buttonStyles={navButtonStyles}
-                />
-              </Link>
+              <NavItem
+                icon={<User className="h-4 w-4 text-[#3F51B5]" />}
+                text=""
+                isButton={true}
+                buttonStyles={navButtonStyles}
+              />
             </ul>
           </div>
         </div>
@@ -68,8 +58,7 @@ const Navbar: React.FC = () => {
       <SideMenu isOpen={isDrawerOpen} onClose={toggleDrawer} />
     </>
   );
-};
-
+}
 
 interface NavItemProps {
   icon: React.ReactNode;
@@ -78,44 +67,37 @@ interface NavItemProps {
   buttonStyles?: React.CSSProperties;
 }
 
-const NavItem: React.FC<NavItemProps> = ({
-  icon,
-  text,
-  isButton,
-  buttonStyles,
-}) => {
+const NavItem: React.FC<NavItemProps> = ({ icon, text, isButton, buttonStyles }) => {
   if (isButton) {
     return (
       <li className="nav-item" style={navItemStyle}>
-        <button
-          className="btn d-flex align-items-center"
-          style={buttonStyles}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.backgroundColor = "#6900D9";
-            e.currentTarget.style.color = "white";
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = "white";
-            e.currentTarget.style.color = "#3F51B5";
-          }}
-        >
-          {icon}
-          <span className="ms-2 d-none d-md-inline">{text}</span>{" "}
-          {/* Text visible at md and up */}
-        </button>
+        {/* Link to the profile page */}
+        <Link to="/profile">
+          <button
+            className="btn d-flex align-items-center"
+            style={buttonStyles}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#6900D9';
+              e.currentTarget.style.color = 'white';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = 'white';
+              e.currentTarget.style.color = '#3F51B5';
+            }}
+          >
+            {icon}
+            {/* Removed the text span */}
+          </button>
+        </Link>
       </li>
     );
   }
 
   return (
     <li className="nav-item" style={navItemStyle}>
-      <a
-        href="#"
-        className="nav-link d-flex align-items-center text-white hover:text-black"
-      >
+      <a href="#" className="nav-link d-flex align-items-center text-white hover:text-black">
         {icon}
-        <span className="ms-1 d-none d-md-inline">{text}</span>{" "}
-        {/* Text visible at md and up */}
+        {/* Removed the text span */}
       </a>
     </li>
   );

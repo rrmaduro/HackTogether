@@ -75,41 +75,7 @@ const EventCard: React.FC<EventCardProps> = ({
         <p className="text-muted">{description}</p>
 
         {/* Buttons container */}
-        <div className="d-flex justify-content-between align-items-center mt-auto">
-          {/* Heart Button (Like) */}
-          <div className="d-flex align-items-center">
-            <button
-              className="btn p-0"
-              style={{ background: 'none', border: 'none' }}
-              onClick={handleLikeClick}
-            >
-              {liked ? (
-                <HeartFilled size={24} color="red" />
-              ) : (
-                <HeartOutline size={24} color="gray" />
-              )}
-            </button>
-            <span className="ms-2">
-              {likeCount} {likeCount === 1 ? 'like' : 'likes'}
-            </span>
-          </div>
-
-          {/* Save Button */}
-          <div className="d-flex align-items-center">
-            <button
-              className="btn p-0"
-              style={{ background: 'none', border: 'none' }}
-              onClick={handleSaveClick}
-            >
-              <Bookmark
-                size={24}
-                color={saved ? 'black' : 'gray'}
-              />
-            </button>
-            <span className="ms-2">
-              {saveCount} {saveCount === 1 ? 'save' : 'saves'}
-            </span>
-          </div>
+        <div className="d-flex justify-content-between align-items-center mt-auto">       
         </div>
       </div>
     </div>

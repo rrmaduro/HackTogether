@@ -38,7 +38,58 @@ export default function Login() {
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
             textAlign: 'center',
             position: 'relative',
-        }
+            backgroundColor: 'rgba(255, 255, 255, 0.8)', // Slightly transparent background
+            backdropFilter: 'blur(10px)', // Soft background blur
+            maxWidth: '500px',
+            margin: 'auto',
+        },
+        input: {
+            borderRadius: '0.5rem',
+            padding: '0.75rem',
+            fontSize: '1rem',
+            boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+            transition: 'all 0.3s ease',
+        },
+        button: {
+            backgroundColor: '#007bff',
+            border: 'none',
+            borderRadius: '0.5rem',
+            padding: '0.75rem 1.5rem',
+            color: '#fff',
+            fontSize: '1.1rem',
+            width: '100%',
+            cursor: 'pointer',
+            transition: 'background-color 0.3s ease',
+        },
+        buttonHover: {
+            backgroundColor: '#0056b3',
+        },
+        formLabel: {
+            fontWeight: 'bold',
+            fontSize: '1rem',
+            color: '#333',
+        },
+        icon: {
+            width: '10rem',
+            height: '10rem',
+            marginBottom: '2rem',
+        },
+    };
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.style.borderColor = '#007bff';
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        e.target.style.borderColor = '';
+    };
+
+    const handleButtonHover = (e: React.MouseEvent<HTMLButtonElement>) => {
+        (e.target as HTMLButtonElement).style.backgroundColor = styles.buttonHover.backgroundColor;
+    };
+
+    const handleButtonLeave = (e: React.MouseEvent<HTMLButtonElement>) => {
+        (e.target as HTMLButtonElement).style.backgroundColor = styles.button.backgroundColor;
     };
 
     return (
@@ -55,20 +106,50 @@ export default function Login() {
                     <ArrowLeft style={styles.backIcon} onClick={() => navigate('/')} />
 
                     <div className="rounded mx-auto d-block mb-4">
-                        <CircleUserRound style={{ width: "10rem", height: "10rem" }} />
+                        <CircleUserRound style={styles.icon} />
                     </div>
+
                     <div className="login-form">
                         <form>
                             <div className="mb-3">
-                                <label htmlFor="emailInput" className="form-label">Email address</label>
-                                <input type="email" className="form-control" id="emailInput" aria-describedby="emailHelp" />
+                                <label htmlFor="emailInput" className="form-label" style={styles.formLabel}>
+                                    Email address
+                                </label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    id="emailInput"
+                                    aria-describedby="emailHelp"
+                                    style={styles.input}
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                />
                             </div>
                             <div className="mb-3">
-                                <label htmlFor="passwordInput" className="form-label">Password</label>
-                                <input type="password" className="form-control" id="passwordInput" />
+                                <label htmlFor="passwordInput" className="form-label" style={styles.formLabel}>
+                                    Password
+                                </label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    id="passwordInput"
+                                    style={styles.input}
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                />
                             </div>
-                            <button type="submit" className="btn btn-primary w-100">Submit</button>
-                            <Link to="/sign-up" className="d-block text-center mt-3">Sign up</Link>
+                            <button
+                                type="submit"
+                                className="btn btn-primary w-100"
+                                style={styles.button}
+                                onMouseEnter={handleButtonHover}
+                                onMouseLeave={handleButtonLeave}
+                            >
+                                Submit
+                            </button>
+                            <Link to="/sign-up" className="d-block text-center mt-3">
+                                Don't have an account? Sign up
+                            </Link>
                         </form>
                     </div>
                 </div>
