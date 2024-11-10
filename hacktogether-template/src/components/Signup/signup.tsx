@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { CircleUserRound, ArrowLeft } from "lucide-react"; // Import ArrowLeft for back icon
 import { Link, useNavigate } from "react-router-dom";
+import BackgroundVideo from "../../assets/videos/signUpVideo.mp4";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -110,6 +111,7 @@ export default function Signup() {
     <div style={styles.videoBackgroundContainer}>
       {/* Background Video */}
       <video autoPlay muted loop style={styles.backgroundVideo}>
+        <source src={BackgroundVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
