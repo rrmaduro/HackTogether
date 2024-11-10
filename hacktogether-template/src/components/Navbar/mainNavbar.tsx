@@ -66,9 +66,7 @@ const Navbar: React.FC = () => {
 
       {/* Side Menu Drawer */}
       <SideMenu isOpen={isDrawerOpen} onClose={toggleDrawer} />
-      
-      {/* Pass the isOpen state to MainPage */}
-      <MainPage isDrawerOpen={isDrawerOpen} />
+    
     </>
   );
 };
