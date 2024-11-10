@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import EventCard from '../Event/event'; // Ensure the path to EventCard is correct
 
 // Import images for events with corresponding event names
@@ -48,11 +49,16 @@ const events = [
 ];
 
 const MyEventsPage: React.FC = () => {
-  // Let's assume likedEventIds contains the IDs of the events that are liked
+  const navigate = useNavigate(); // Initialize navigate
   const [likedEventIds] = useState([1, 3]); // For example, the user has liked events 1 and 3
 
   // Filter events to only show the liked ones
   const likedEvents = events.filter(event => likedEventIds.includes(event.id));
+
+  // Function to handle card click and navigate to event details
+  const handleCardClick = (eventId: number) => {
+    navigate(`/event/${eventId}`);
+  };
 
   return (
     <div className="container my-3">
@@ -60,15 +66,20 @@ const MyEventsPage: React.FC = () => {
         {likedEvents.length > 0 ? (
           likedEvents.map((event) => (
             <div key={event.id} className="col-md-4 mb-4">
-              <EventCard
-                eventImageSrc={event.eventImageSrc}
-                eventName={event.eventName}
-                hostName={event.hostName}
-                eventTime={event.eventTime}
-                eventLocation={event.eventLocation}
-                attendees={event.attendees}
-                description={event.description}
-              />
+              <div 
+                onClick={() => handleCardClick(event.id)} // Add click handler
+                style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', height: '100%' }} // Pointer cursor and equal height
+              >
+                <EventCard
+                  eventImageSrc={event.eventImageSrc}
+                  eventName={event.eventName}
+                  hostName={event.hostName}
+                  eventTime={event.eventTime}
+                  eventLocation={event.eventLocation}
+                  attendees={event.attendees}
+                  description={event.description}
+                />
+              </div>
             </div>
           ))
         ) : (
