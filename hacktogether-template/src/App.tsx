@@ -8,6 +8,7 @@ import AboutPage from './components/Pages/aboutPage';
 import SettingsPage from './components/Pages/settingsPage';
 import SignUp from './components/Signup/signup';
 import LogIn from './components/Login/login';
+import SingleEventPage from './components/Pages/singleEventPage'
 
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'; // Import useLocation
 
@@ -40,6 +41,7 @@ function AppContent() {
           <Route path="/settings" element={<SettingsPage />} /> {/* SettingsPage */}
           <Route path="/sign-up" element={<SignUp />} /> {/* SignUp */}
           <Route path="/log-in" element={<LogIn />} /> {/* LogIn */}
+          <Route path="/event/1" element={<SingleEventPage />} /> {/* LogIn */}
         </Routes>
       </div>
     </div>
