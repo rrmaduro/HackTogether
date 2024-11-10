@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/mainNavbar';
 import MainPage from '@components/Pages/MainPage';
 import LocationsPage from './components/Pages/locationsPage';
 import EventPage from './components/Pages/eventsPage';
+import MyEventsPage from './components/Pages/myEventsPage';
 import AboutPage from './components/Pages/aboutPage';
 import SettingsPage from './components/Pages/settingsPage';
 import SignUp from './components/Signup/signup';
@@ -36,6 +37,7 @@ function AppContent() {
           <Route path="/" element={<MainPage isDrawerOpen={false} />} /> {/* MainPage at root route */}
           <Route path="/locations" element={<LocationsPage />} /> {/* LocationsPage */}
           <Route path="/events" element={<EventPage />} /> {/* EventPage */}
+          <Route path="/my-events" element={<MyEventsPage />} /> {/* EventPage */}
           <Route path="/about" element={<AboutPage />} /> {/* AboutPage */}
           <Route path="/settings" element={<SettingsPage />} /> {/* SettingsPage */}
           <Route path="/sign-up" element={<SignUp />} /> {/* SignUp */}
