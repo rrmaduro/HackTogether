@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // For routing to individual event pages
-import { Carousel, CarouselItem } from 'reactstrap'; // Correct Carousel import from reactstrap
-import EventCard from '../Event/event'; // The EventCard component for displaying individual events
+import { Link } from 'react-router-dom';
+import LocationCard from '../Locations/locations'; // Assuming LocationCard is located in this path
 
 // Import event images for this location
 import eventImageParisianArtExhibition from '../../assets/images/parisian_art_exhibition.png'; 
 import eventImageLondonJazzNight from '../../assets/images/london_jazz_night.png'; 
 import eventImageRomeOperaNight from '../../assets/images/rome_opera_night.png';
 import eventImageBerlinModernArtShowcase from '../../assets/images/berlin_modern_art_showcase.png';
+import { Carousel, CarouselItem } from 'reactstrap';
+import EventCard from '@components/Event/event';
 
 const SingleLocationPage: React.FC = () => {
   // State to track the active index of the carousel
@@ -41,8 +42,8 @@ const SingleLocationPage: React.FC = () => {
     <div className="container my-3">
       {/* Location Header */}
       <div className="text-center my-4">
-        <h1>Paris</h1>
-        <p className="lead">Explore the best events happening in Paris. From art exhibitions to jazz nights, there's something for everyone!</p>
+        <h1>Madrid</h1>
+        <p className="lead">Madrid is Spain's central capital, known for its art museums, vibrant nightlife, and historic landmarks, including the Royal Palace and Plaza Mayor.</p>
       </div>
 
       {/* Carousel for Events */}
@@ -54,7 +55,7 @@ const SingleLocationPage: React.FC = () => {
         >
           {/* Event 1 */}
           <CarouselItem>
-            <Link to="/event/1" style={{ textDecoration: 'none' }}>
+            <Link to="/event/2" style={{ textDecoration: 'none' }}>
               <EventCard
                 eventImageSrc={eventImageParisianArtExhibition}
                 eventName="Parisian Art Exhibition"

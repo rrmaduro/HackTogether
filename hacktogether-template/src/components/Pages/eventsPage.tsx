@@ -34,7 +34,7 @@ const EventsPage: React.FC = () => {
         
         {/* Event 2 */}
         <div className="col-md-4 mb-4">
-          <Link to="/event/1" style={{ textDecoration: 'none' }}>
+          <Link to="/event/2" style={{ textDecoration: 'none' }}>
             <EventCard
               eventImageSrc={eventImageParisianArtExhibition}
               eventName="Parisian Art Exhibition"
@@ -49,7 +49,7 @@ const EventsPage: React.FC = () => {
         
         {/* Event 3 */}
         <div className="col-md-4 mb-4">
-          <Link to="/event/1" style={{ textDecoration: 'none' }}>
+          <Link to="/event/3" style={{ textDecoration: 'none' }}>
             <EventCard
               eventImageSrc={eventImageMadridFlamencoNight}
               eventName="Madrid Flamenco Night"

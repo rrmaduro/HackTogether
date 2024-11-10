@@ -30,7 +30,7 @@ const LocationsPage: React.FC = () => {
           </Link>
         </div>
         <div className="col-md-4 d-flex">
-          <Link to="/location/lisbon" style={{ textDecoration: 'none' }}>
+          <Link to="/location/paris" style={{ textDecoration: 'none' }}>
             <LocationCard
               imageSrc={parisImage}
               city="Paris"
@@ -41,7 +41,7 @@ const LocationsPage: React.FC = () => {
           </Link>
         </div>
         <div className="col-md-4 d-flex">
-          <Link to="/location/lisbon" style={{ textDecoration: 'none' }}>
+          <Link to="/location/madrid" style={{ textDecoration: 'none' }}>
             <LocationCard
               imageSrc={madridImage}
               city="Madrid"
